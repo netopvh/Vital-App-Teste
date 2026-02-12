@@ -7,6 +7,7 @@ services:
       DATABASE_URL: mysql://vital:vital_secret@mysql:3306/vital
       JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-long-random-string}
       CENTRALIA_SSO_SECRET: ${CENTRALIA_SSO_SECRET:-change-me-in-production-use-long-random-string}
+      AUTH_COOKIE_NAME: ${AUTH_COOKIE_NAME:-vital_token}
     depends_on:
       mysql:
         condition: service_healthy
