@@ -1,0 +1,50 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: mysql://vital:vital_secret@mysql:3306/vital
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-long-random-string}
+      CENTRALIA_SSO_SECRET: ${CENTRALIA_SSO_SECRET:-change-me-in-production-use-long-random-string}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vital-app.rule=Host(`app.vitalsolutions.com.br`)
+      - traefik.http.routers.vital-app.entrypoints=websecure
+      - traefik.http.routers.vital-app.tls=true
+      - traefik.http.routers.vital-app.tls.certresolver=letsencrypt
+      - traefik.http.services.vital-app.loadbalancer.server.port=3000
+    networks:
+      - vital-network
+      - traefik_proxy
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_secret
+      MYSQL_DATABASE: vital
+      MYSQL_USER: vital
+      MYSQL_PASSWORD: vital_secret
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "sh", "-c", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - vital-network
+
+volumes:
+  mysql_data:
+
+networks:
+  vital-network:
+    driver: bridge
+  traefik_proxy:
+    external: true
