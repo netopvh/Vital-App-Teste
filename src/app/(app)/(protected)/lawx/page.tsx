@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const LAWX_BASE_URL = "https://lawx.centralia.com.br/dashboard";
+const LAWX_BASE_URL = process.env.LAWX_BASE_URL ?? "https://lawx.vitalsolutions.com.br/dashboard";
 
 export default function LawxPage() {
   const router = useRouter();

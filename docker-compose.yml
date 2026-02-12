@@ -8,6 +8,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-long-random-string}
       CENTRALIA_SSO_SECRET: ${CENTRALIA_SSO_SECRET:-change-me-in-production-use-long-random-string}
       AUTH_COOKIE_NAME: ${AUTH_COOKIE_NAME:-vital_token}
+      LAWX_BASE_URL: ${LAWX_BASE_URL:-https://lawx.vitalsolutions.com.br/dashboard}
     depends_on:
       mysql:
         condition: service_healthy
