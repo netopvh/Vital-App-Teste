@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HeaderAuth } from "@/components/header-auth";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function AppLayout({
   children,
@@ -13,7 +14,10 @@ export default function AppLayout({
           <Link href="/" className="font-semibold">
             Vital
           </Link>
-          <HeaderAuth />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <HeaderAuth />
+          </div>
         </div>
       </header>
       <main className="flex min-h-0 flex-1 flex-col p-4 md:p-6">{children}</main>
