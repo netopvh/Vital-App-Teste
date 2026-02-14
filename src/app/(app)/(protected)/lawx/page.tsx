@@ -74,7 +74,7 @@ export default function LawxPage() {
         src={iframeSrc}
         title="LawX Dashboard"
         className="h-full min-h-0 w-full flex-1 rounded-md border border-[hsl(var(--border))]"
-        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-modals allow-downloads"
       />
     </div>
   );
